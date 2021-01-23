@@ -66,14 +66,15 @@ RUN yum install -y --disableplugin=subscription-manager hostname procps \
     && rm -rf /opt/chefdk \
     && rm -rf /var/cache/yum \
     && rm -rf /var/chef \
-    && yum clean all \
-    && chgrp -R 0 /opt/sonartype/sonartype-work /nexus-data \
-    && chmod -R g=u /opt/sonartype/sonartype-work /nexus-data 
+    && yum clean all 
+    
+#RUN chgrp -R 0 /opt/sonartype/sonartype-work /nexus-data && \
+#    chmod -R g=u /opt/sonartype/sonartype-work /nexus-data 
 
 VOLUME ${NEXUS_DATA}
 
 EXPOSE 8081
-USER 1001
+USER nexus
 
 ENV INSTALL4J_ADD_VM_PARAMS="-Xms1200m -Xmx1200m -XX:MaxDirectMemorySize=2g -Djava.util.prefs.userRoot=${NEXUS_DATA}/javaprefs"
 
