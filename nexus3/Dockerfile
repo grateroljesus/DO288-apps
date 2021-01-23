@@ -67,7 +67,7 @@ RUN yum install -y --disableplugin=subscription-manager hostname procps \
     && rm -rf /var/cache/yum \
     && rm -rf /var/chef \
     && yum clean all \
-    && chrgp -R 0 /opt/sonartype/sonartype-work /nexus-data \
+    && chgrp -R 0 /opt/sonartype/sonartype-work /nexus-data \
     && chmod -R g=u /opt/sonartype/sonartype-work /nexus-data 
 
 VOLUME ${NEXUS_DATA}
