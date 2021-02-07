@@ -44,7 +44,7 @@ objects:
       sourceStrategy:
         env:
         - name: npm_config_registry
-          value: ${NPM_PROXY}
+          value: http://INVALIDHOST.NODOMAIN.NUL
         from:
           kind: ImageStreamTag
           name: nodejs:12
@@ -131,7 +131,7 @@ objects:
   metadata:
     annotations:
     labels:
-      app: todoapp
+      app: tododb
     name: tododb
   spec:
     replicas: 1
@@ -217,7 +217,7 @@ objects:
   metadata:
     annotations:
     labels:
-      app: todoapp
+      app: tododb
     name: tododb
   spec:
     ports:
@@ -237,7 +237,7 @@ objects:
       app: todoapp
     name: todoapp
   spec:
-    host: ${HOSTNAME}
+    host: http://INVALIDHOST.NODOMAIN.NUL
     port:
       targetPort: 8080-tcp
     to:
@@ -263,12 +263,3 @@ parameters:
   description: Secret for webhooks
   generate: expression
   from: '[a-zA-Z0-9]{40}'
-- name: PASSWORD
-  displayName: password
-  description: password
-  generate: expression
-  from: '[a-zA-Z0-9]{40}'
-- name: CLEAN_DATABASE 
-  displayName: CLEANDB
-  description: CLEANDB
-  value: "true"
