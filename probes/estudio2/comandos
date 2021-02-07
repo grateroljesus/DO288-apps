@@ -1,0 +1,196 @@
+[student@workstation estudio2]$ lab review-template start
+
+Checking prerequisites for Lab: Creating Applications from OpenShift Templates
+
+ Checking local clone of the applications repository:
+ · Folder '/home/student/DO288-apps' is a git repo.............  SUCCESS
+ · Git repo '/home/student/DO288-apps' has no pending changes..  SUCCESS
+ Verifying the OpenShift cluster is running:
+ · Log in on OpenShift.........................................  SUCCESS
+ · Check master node na45-mh9qn-master-0 is ready..............  SUCCESS
+ · Check master node na45-mh9qn-master-1 is ready..............  SUCCESS
+ · Check master node na45-mh9qn-master-2 is ready..............  SUCCESS
+ · Check the internal registry is up and running...............  SUCCESS
+ Checking required artifacts:
+ · Project 'todo-single' exists in student's GitHub fork.......  SUCCESS
+ · Module 'nodejs' exists in classroom's Nexus.................  SUCCESS
+ Checking for conflicts with existing OpenShift projects:
+ · Project 'jagrater-co-ibm-com-review-template' is absent.....  SUCCESS
+
+Setting up the classroom for Lab: Creating Applications from OpenShift Templates
+
+ · Download exercise files.....................................  SUCCESS
+ · Download solution files.....................................  SUCCESS
+
+Overall start status...........................................  SUCCESS
+
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ ls
+todo-template.yaml
+[student@workstation estudio2]$ vi todo-template.yaml 
+(reverse-i-search)`oc ': ^C delete project jagrater-co-ibm-com-review-template 
+[student@workstation estudio2]$ ^C
+[student@workstation estudio2]$ oc new-app --as-deployment-config --name todo --file todo-template-2.yaml -p APP_GIT_URL=https://github.com/grateroljesus/DO288-apps -p HOSTNAME=${RHT_OCP4_DEV_USER}-todo.${RHT_OCP4_WILDCARD_DOMAIN} -p CLEAN_DATABASE=true -p NPM_PROXY=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs -p PASSWORD=mypass
+error: unable to locate any template files with name "todo-template-2.yaml"
+
+The 'oc new-app' command will match arguments to the following types:
+
+  1. Images tagged into image streams in the current project or the 'openshift' project
+     - if you don't specify a tag, we'll add ':latest'
+  2. Images in the Docker Hub, on remote registries, or on the local Docker engine
+  3. Templates in the current project or the 'openshift' project
+  4. Git repository URLs or local paths that point to Git repositories
+
+--allow-missing-images can be used to point to an image that does not exist yet.
+
+See 'oc new-app -h' for examples.
+[student@workstation estudio2]$ oc new-project $RHT_
+$RHT_COURSE                $RHT_OCP4_DEV_USER         $RHT_OCP4_QUAY_USER        $RHT_VENUE
+$RHT_ENROLLMENT            $RHT_OCP4_GITHUB_USER      $RHT_OCP4_WILDCARD_DOMAIN  $RHT_VMTREE
+$RHT_NETWORK               $RHT_OCP4_MASTER_API       $RHT_ROLE                  
+$RHT_OCP4_DEV_PASSWORD     $RHT_OCP4_NEXUS_SERVER     $RHT_TITLE                 
+[student@workstation estudio2]$ oc new-project $RHT_OCP4_DEV_USER-review-template
+Already on project "jagrater-co-ibm-com-review-template" on server "https://api.na45.prod.nextcle.com:6443".
+
+You can add applications to this project with the 'new-app' command. For example, try:
+
+    oc new-app ruby~https://github.com/sclorg/ruby-ex.git
+
+to build a new example application in Ruby. Or use kubectl to deploy a simple Kubernetes application:
+
+    kubectl create deployment hello-node --image=gcr.io/hello-minikube-zero-install/hello-node
+
+[student@workstation estudio2]$ oc new-app --as-deployment-config --name todo --file todo-template-2.yaml -p APP_GIT_URL=https://github.com/grateroljesus/DO288-apps -p HOSTNAME=${RHT_OCP4_DEV_USER}-todo.${RHT_OCP4_WILDCARD_DOMAIN} -p CLEAN_DATABASE=true -p NPM_PROXY=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs -p PASSWORD=mypass
+error: unable to locate any template files with name "todo-template-2.yaml"
+
+The 'oc new-app' command will match arguments to the following types:
+
+  1. Images tagged into image streams in the current project or the 'openshift' project
+     - if you don't specify a tag, we'll add ':latest'
+  2. Images in the Docker Hub, on remote registries, or on the local Docker engine
+  3. Templates in the current project or the 'openshift' project
+  4. Git repository URLs or local paths that point to Git repositories
+
+--allow-missing-images can be used to point to an image that does not exist yet.
+
+See 'oc new-app -h' for examples.
+[student@workstation estudio2]$ ls
+todo-template.yaml
+[student@workstation estudio2]$ oc new-app --as-deployment-config --name todo --file todo-template.yaml -p APP_GIT_URL=https://github.com/grateroljesus/DO288-apps -p HOSTNAME=${RHT_OCP4_DEV_USER}-todo.${RHT_OCP4_WILDCARD_DOMAIN} -p CLEAN_DATABASE=true -p NPM_PROXY=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs -p PASSWORD=mypass
+--> Deploying template "jagrater-co-ibm-com-review-template/todo" for "todo-template.yaml" to project jagrater-co-ibm-com-review-template
+
+     Todo Application
+     ---------
+     The Todo application provides an HTTP API back-end and an Angular front-end.
+
+     * With parameters:
+        * Aplication source Git URL=https://github.com/grateroljesus/DO288-apps
+        * Aplication Hostname=jagrater-co-ibm-com-todo.apps.na45.prod.nextcle.com
+        * Npm proxy server URL=http://nexus-common.apps.na45.prod.nextcle.com/repository/nodejs
+        * Webhook Secret=3jVuO5mCpuVsVkQh8FGs1jgnFsG5tt242OsGl1ry # generated
+        * password=mypass
+        * CLEANDB=true
+
+--> Creating resources ...
+    imagestream.image.openshift.io "todoapp" created
+    buildconfig.build.openshift.io "todoapp" created
+    deploymentconfig.apps.openshift.io "todoapp" created
+    deploymentconfig.apps.openshift.io "tododb" created
+    service "todoapp" created
+    service "tododb" created
+    route.route.openshift.io "todoapp" created
+--> Success
+    Build scheduled, use 'oc logs -f bc/todoapp' to track its progress.
+    Access your application via route 'jagrater-co-ibm-com-todo.apps.na45.prod.nextcle.com' 
+    Run 'oc status' to view your app.
+[student@workstation estudio2]$ oc get pods -w
+NAME              READY   STATUS              RESTARTS   AGE
+todoapp-1-build   0/1     PodInitializing     0          6s
+tododb-1-deploy   1/1     Running             0          5s
+tododb-1-jp2cv    0/1     ContainerCreating   0          2s
+todoapp-1-build   1/1     Running             0          7s
+tododb-1-jp2cv    1/1     Running             0          3s
+tododb-1-deploy   0/1     Completed           0          7s
+^C[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ oc get pods -w
+NAME              READY   STATUS      RESTARTS   AGE
+todoapp-1-build   1/1     Running     0          28s
+tododb-1-deploy   0/1     Completed   0          27s
+tododb-1-jp2cv    1/1     Running     0          24s
+todoapp-1-deploy   0/1     Pending     0          0s
+todoapp-1-deploy   0/1     Pending     0          0s
+todoapp-1-deploy   0/1     ContainerCreating   0          0s
+todoapp-1-build    0/1     Completed           0          42s
+todoapp-1-deploy   0/1     ContainerCreating   0          3s
+todoapp-1-deploy   1/1     Running             0          4s
+todoapp-1-kjjcd    0/1     Pending             0          0s
+todoapp-1-kjjcd    0/1     Pending             0          0s
+todoapp-1-kjjcd    0/1     ContainerCreating   0          0s
+todoapp-1-kjjcd    0/1     ContainerCreating   0          2s
+^C[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ 
+[student@workstation estudio2]$ oc get pods -w
+NAME               READY   STATUS      RESTARTS   AGE
+todoapp-1-build    0/1     Completed   0          55s
+todoapp-1-deploy   0/1     Completed   0          13s
+todoapp-1-kjjcd    1/1     Running     0          8s
+tododb-1-deploy    0/1     Completed   0          54s
+tododb-1-jp2cv     1/1     Running     0          51s
+^C[student@workstation estudio2]$ oc delete all -l app=todoapp
+pod "todoapp-1-kjjcd" deleted
+replicationcontroller "todoapp-1" deleted
+replicationcontroller "tododb-1" deleted
+service "todoapp" deleted
+service "tododb" deleted
+deploymentconfig.apps.openshift.io "todoapp" deleted
+deploymentconfig.apps.openshift.io "tododb" deleted
+buildconfig.build.openshift.io "todoapp" deleted
+build.build.openshift.io "todoapp-1" deleted
+imagestream.image.openshift.io "todoapp" deleted
+route.route.openshift.io "todoapp" deleted
+[student@workstation estudio2]$ oc status
+In project jagrater-co-ibm-com-review-template on server https://api.na45.prod.nextcle.com:6443
+
+You have no services, deployment configs, or build configs.
+Run 'oc new-app' to create an application.
+[student@workstation estudio2]$ oc new-app --as-deployment-config --name todo --file todo-template.yaml -p APP_GIT_URL=https://github.com/grateroljesus/DO288-apps -p HOSTNAME=${RHT_OCP4_DEV_USER}-todo.${RHT_OCP4_WILDCARD_DOMAIN} -p CLEAN_DATABASE=true -p NPM_PROXY=http://${RHT_OCP4_NEXUS_SERVER}/repository/nodejs -p PASSWORD=mypass
+--> Deploying template "jagrater-co-ibm-com-review-template/todo" for "todo-template.yaml" to project jagrater-co-ibm-com-review-template
+
+     Todo Application
+     ---------
+     The Todo application provides an HTTP API back-end and an Angular front-end.
+
+     * With parameters:
+        * Aplication source Git URL=https://github.com/grateroljesus/DO288-apps
+        * Aplication Hostname=jagrater-co-ibm-com-todo.apps.na45.prod.nextcle.com
+        * Npm proxy server URL=http://nexus-common.apps.na45.prod.nextcle.com/repository/nodejs
+        * Webhook Secret=5RsbklshLtHfOA1HVfIgrHPkCBWmFu4pCo42bHbE # generated
+        * password=mypass
+        * CLEANDB=true
+
+--> Creating resources ...
+    imagestream.image.openshift.io "todoapp" created
+    buildconfig.build.openshift.io "todoapp" created
+    deploymentconfig.apps.openshift.io "todoapp" created
+    deploymentconfig.apps.openshift.io "tododb" created
+    service "todoapp" created
+    service "tododb" created
+    route.route.openshift.io "todoapp" created
+--> Success
+    Build scheduled, use 'oc logs -f bc/todoapp' to track its progress.
+    Access your application via route 'jagrater-co-ibm-com-todo.apps.na45.prod.nextcle.com' 
+    Run 'oc status' to view your app.
+[student@workstation estudio2]$ oc get pods -w
+
