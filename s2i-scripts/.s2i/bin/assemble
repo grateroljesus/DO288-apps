@@ -13,8 +13,7 @@ config_s2i
 echo "---> Installing application source"
 cp -Rf /tmp/src/*.html ./
 
-DATE=`date "+%d-%m-%Y"`
-
+DATE=$(date '+%Y-%m-%d')
 echo "---> Creating info page"
 echo "Hola GBS Colombia $DATE" >> ./info.html
 echo "Proudly served by Apache HTTP Server version $HTTPD_VERSION" >> ./info.html
